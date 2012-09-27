@@ -1,0 +1,32 @@
+<div class="wrap">
+
+<h2 class="top">Pendaftaran</h2>
+
+<?php echo $html->formTag('/users/register') ?>
+<p>Silahkan isi form berikut:</p>
+<label>Username:</label>
+<?php echo $html->inputTag('User/username', array('size' => '40')) ?>
+<?php echo $html->tagErrorMsg('User/username', $username_error) ?>
+<label>Password:</label>
+<?php echo $html->passwordTag('User/password', array('size' => '20')) ?>
+<?php echo $html->tagErrorMsg('User/password', 'Password harus diisi') ?>
+<label>Email Address:</label>
+<?php echo $html->inputTag('User/email', array('size' =>
+'40','maxlength'=>'255')) ?>
+<?php echo $html->tagErrorMsg('User/email', 'Alamat email salah') ?>
+<label>First Name:</label>
+<?php echo $html->inputTag('User/first_name', array('size' => '40')) ?>
+<?php echo $html->tagErrorMsg('User/first_name', 'Wajib diisi') ?>
+<label>Last Name:</label>
+<?php echo $html->inputTag('User/last_name', array('size' => '40')) ?>
+<?php echo $html->tagErrorMsg('User/last_name', 'Wajib diisi') ?>
+<label>Passkey:</label>
+<?php echo $html->inputTag('User/passkey', array('size' => '40')) ?>
+<?php echo $html->tagErrorMsg('User/passkey', $passkey_error) ?>
+
+<?php echo $html->submitTag('register') ?>
+
+
+</form>
+
+</div>

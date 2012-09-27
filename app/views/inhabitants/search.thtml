@@ -1,0 +1,81 @@
+<ul id="submenu" class="noprint">
+	<li><?= $html->link("Daftar Dusun","/inhabitants/")?></li>
+	<li><?= $html->link("Statistik","/inhabitants/stats")?></li>
+	<li><?= $html->link("Pencarian","/inhabitants/search", array( 'class' => 'current'))?></li>
+</ul>
+
+<div id="<?= $this->viewPath ?>">
+
+<div id="search" class="wrap" style="">
+<h2 class="top">Pencarian:</h2>
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+	
+    <form method="POST" id="PendudukSearch">
+        <?= $form->generateSelectDiv( "Penduduk/dusun_id", "Dusun: ", $this->controller->Dusun->generateList() ) ?>
+        <?= $form->generateInputDiv( "Penduduk/rt", "RT: " ) ?>
+        <?= $form->generateInputDiv( "Penduduk/rw", "RW: " ) ?>
+        <?= $form->generateSelectDiv( "Penduduk/status_kepala_keluarga", "Kepala keluarga? ", array( "Y" => "Ya", "N" => "Tidak" ) ) ?>
+        <?= $form->generateInputDiv( "Penduduk/nama", "Nama: " ) ?>
+        <?= $form->generateSelectDiv( "Penduduk/jenis_kelamin_id", "Jenis kelamin: ", $this->controller->JenisKelamin->generateList() ) ?>
+        <? //= $form->generateInputDiv( "Penduduk/usia", "Usia: " ) ?>
+        <?= $form->generateSelectDiv( "Penduduk/agama_id", "Agama", $this->controller->Agama->generateList() ) ?>
+        <?= $form->generateInputDiv( "Penduduk/pekerjaan", "Pekerjaan: " ) ?>
+        <?= $form->generateInputDiv( "Penduduk/pendidikan", "Pendidikan: " ) ?>
+    </form>
+    
+
+    <?php $ajax->observeForm( "PendudukSearch", 
+    array( 
+	"frequency" => 3, 
+	"url" => "auto_list", 
+	"update" => "PendudukList",
+    "loading" => "$('progress').show();", 
+	"loaded" => "new Effect.Fade('progress');"
+	))
+	?>
+	
+	<script type="text/javascript">
+	new Form.Observer('PendudukSearch', 3, function(element, value) {
+	new Ajax.Updater('PendudukList','/sensus/inhabitants/auto_list', {
+		asynchronous:true, 
+		evalScripts:true, 
+		onLoading:function(request){$('progress').show();}, 
+		onLoaded:function(request){new Effect.Fade('progress');}, 
+		parameters:Form.serialize("PendudukSearch"), 
+		requestHeaders:['X-Update', 'PendudukList']})})
+	</script>
+
+	<script type="text/javascript">
+	
+		/* jquery code
+		$(document).ready(function(){
+			// ajax
+			$("#PendudukSearch input,#PendudukSearch select").change(function(){
+				$.ajax({
+				type: "POST",
+				url: "/sensus/inhabitants/auto_list",
+				data: $("#PendudukSearch").serialize(),
+				dataType: "html",
+				success: function(html){
+				$("#PendudukList").empty().append(html);}
+				});			
+			});
+			
+			// Progress
+			$("#progress").ajaxStart(function(){$(this).show();});			
+			$("#progress").ajaxStop(function(){$(this).fadeOut();});
+		
+		});*/
+		
+	</script>
+	
+	<div id="progress" style="display:none;position:absolute;margin:-12em 0 0 35em;">
+	<p style="text-align:left; font-size:medium">Sedang mencari...</p>
+	</div>
+
+    <!-- Div untuk auto_list penduduk -->
+    <div id="PendudukList">
+    </div>
+</div> <!-- search tab -->
+
+</div>

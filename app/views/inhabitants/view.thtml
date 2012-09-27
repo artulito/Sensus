@@ -1,0 +1,65 @@
+<ul id="submenu" class="noprint">
+	<li><?= $html->link("Daftar Dusun","/inhabitants/")?></li>
+	<li><?= $html->link("Statistik","/inhabitants/stats")?></li>
+	<li><?= $html->link("Pencarian","/inhabitants/search")?></li>
+</ul>
+
+<div id="<?= $this->viewPath ?>" class="wrap">
+<h2 class="top">Keluarga <?= $dataKepalaKeluarga['Penduduk']['nama'] ?>, <span style="font-size:0.7em"><?= $dataKepalaKeluarga['Dusun']['nama'] ?> RT <?= $dataKepalaKeluarga['Penduduk']['rt'] ?> RW <?= $dataKepalaKeluarga['Penduduk']['rw'] ?></span></h2>
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+	<table class="datasheet wide view">
+	<tr>
+		<th colspan="3">Nama</th>
+		<th rowspan="2">Jenis kelamin</th>
+		<th rowspan="2">Usia</th>
+		<th rowspan="2">Tempat lahir</th>
+		<th rowspan="2">Tanggal lahir</th>
+		<th rowspan="2">Agama</th>
+		<th rowspan="2">Pekerjaan</th>
+		<th rowspan="2">Pendidikan</th>
+		<th rowspan="2">Keterangan</th>
+	</tr>
+	<tr>
+		<th>Gelar depan</th>
+		<th>Nama asli</th>
+		<th>Gelar belakang</th>
+	</tr>
+	<tr>
+		<td colspan="11" class="divider">Kepala Keluarga :</td>
+	</tr>
+	<tr>
+		<td><?= $dataKepalaKeluarga['Penduduk']['gelar_depan'] ?></td>
+		<td><?= $dataKepalaKeluarga['Penduduk']['nama'] ?></td>
+		<td><?= $dataKepalaKeluarga['Penduduk']['gelar_belakang'] ?></td>
+		<td><?= $dataKepalaKeluarga['JenisKelamin']['nama'] ?></td>
+		<td><? $umur = $this->controller->Penduduk->getAgeInfo( $dataKepalaKeluarga['Penduduk']['tanggal_lahir'] ); echo $umur['years'] ?></td>
+		<td><?= $dataKepalaKeluarga['Penduduk']['tempat_lahir'] ?></td>
+		<td><?= strftime( "%A, %d %B %Y", $time->toUnix( $dataKepalaKeluarga['Penduduk']['tanggal_lahir'] ) ); ?></td>
+		<td><?= $dataKepalaKeluarga['Agama']['nama'] ?></td>
+		<td><?= $dataKepalaKeluarga['Penduduk']['pekerjaan'] ?></td>
+		<td><?= $dataKepalaKeluarga['Penduduk']['pendidikan'] ?></td>
+		<td><?= $dataKepalaKeluarga['Penduduk']['keterangan'] ?></td>
+	</tr>
+	<tr>
+		<td colspan="11" class="divider">Anggota Keluarga :</td> 
+	</tr>
+	<? foreach( $daftarAnggotaKeluarga as $dataAnggotaKeluarga ): ?>
+	<tr>
+		<td><?= $dataAnggotaKeluarga['Penduduk']['gelar_depan'] ?></td>
+		<td><?= $dataAnggotaKeluarga['Penduduk']['nama'] ?></td>
+		<td><?= $dataAnggotaKeluarga['Penduduk']['gelar_belakang'] ?></td>
+		<td><?= $dataAnggotaKeluarga['JenisKelamin']['nama'] ?></td>
+		<td><? $umur = $this->controller->Penduduk->getAgeInfo( $dataAnggotaKeluarga['Penduduk']['tanggal_lahir'] ); echo $umur['years'] ?></td>
+		<td><?= $dataAnggotaKeluarga['Penduduk']['tempat_lahir'] ?></td>
+		<td><?= strftime( "%A, %d %B %Y", $time->toUnix( $dataAnggotaKeluarga['Penduduk']['tanggal_lahir'] ) ); ?></td>
+		<td><?= $dataAnggotaKeluarga['Agama']['nama'] ?></td>
+		<td><?= $dataAnggotaKeluarga['Penduduk']['pekerjaan'] ?></td>
+		<td><?= $dataAnggotaKeluarga['Penduduk']['pendidikan'] ?></td>
+		<td></td>
+	</tr>
+	<? endforeach; ?>
+</table>
+<br>
+<span class="noprint">
+<a class="back" href="javascript:history.back()">Kembali</a> &nbsp; <?= $html->link( "Edit", "/inhabitants/edit/{$this->controller->Penduduk->getUniqueId( $dataKepalaKeluarga )}", array("class"=>"ubah")) ?></span>
+</div>

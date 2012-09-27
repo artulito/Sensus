@@ -1,0 +1,164 @@
+<ul id="submenu" class="noprint">
+	<li><a id="list_tab" class="current" href="#list" onclick="list(); return false;">Daftar</a></li>
+	<li><a id="search_tab" href="#search" onclick="cari(); return false;">Pencarian</a></li>	
+</ul>
+
+<div id="<?= $this->viewPath ?>">
+
+<div id="list" class="wrap">
+<h2 class="top">Daftar Keluarga</h2>
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+	<div id="sidebox">
+	<h2>Daftar Dusun</h2>
+
+	<h3>Besari Kulon</h3>
+		<ul>
+		<li><a href="#1-9">Besari Kulon RT 1 RW 9</a></li>
+		<li><a href="#2-9">Besari Kulon RT 2 RW 9</a></li>
+		<li><a href="#1-10">Besari Kulon RT 1 RW 10</a></li>
+		</ul>
+
+	<h3>Besari Wetan</h3>
+		<ul>
+		<li><a href="#1-11">Besari Wetan RT 1 RW 11</a></li>
+		<li><a href="#2-11">Besari Wetan RT 2 RW 11</a></li>
+		</ul>
+
+	<h3>Branjangan</h3>
+		<ul>
+		<li><a href="#1-5">Branjangan RT 1 RW 5</a></li>
+		<li><a href="#2-5">Branjangan RT 2 RW 5</a></li>
+		</ul>
+
+	<h3>Bulusan</h3>
+		<ul>
+		<li><a href="#1-1">Bulusan RT 1 RW 1</a></li>
+		</ul>
+		
+	<h3>Gaswangi</h3>
+		<ul>
+		<li><a href="#2-1">Gaswangi RT 2 RW 1</a></li>		
+		<li><a href="#1-2">Gaswangi RT 1 RW 2</a></li>
+		<li><a href="#2-2">Gaswangi RT 2 RW 2</a></li>
+		</ul>
+		
+	<h3>Gedongan</h3>
+		<ul>
+		<li><a href="#1-3">Gedongan RT 1 RW 3</a></li>
+		<li><a href="#2-3">Gedongan RT 2 RW 3</a></li>
+		<li><a href="#3-3">Gedongan RT 3 RW 3</a></li>
+		</ul>
+
+	<h3>Jabung Kulon</h3>
+		<ul>
+		<li><a href="#1-6">Jabung Kulon RT 1 RW 6</a></li>
+		<li><a href="#2-6">Jabung Kulon RT 2 RW 6</a></li>
+		</ul>
+
+	<h3>Jabung Wetan</h3>
+		<ul>
+		<li><a href="#1-7">Jabung Wetan RT 1 RW 7</a></li>
+		<li><a href="#2-7">Jabung Wetan RT 2 RW 7</a></li>
+		<li><a href="#3-7">Jabung Wetan RT 3 RW 7</a></li>
+		<li><a href="#1-8">Jabung Wetan RT 1 RW 8</a></li>
+		<li><a href="#2-8">Jabung Wetan RT 2 RW 8</a></li>
+		</ul>
+
+	<h3>Jombor</h3>
+		<ul>
+		<li><a href="#1-12">Jombor RT 1 RW 12</a></li>
+		<li><a href="#2-12">Jombor RT 2 RW 12</a></li>
+		<li><a href="#1-13">Jombor RT 1 RW 13</a></li>
+		<li><a href="#2-13">Jombor RT 2 RW 13</a></li>
+		</ul>
+
+	<h3>Sandelan</h3>
+		<ul>
+		<li><a href="#1-4">Sandelan RT 1 RW 4</a></li>
+		<li><a href="#2-4">Sandelan RT 2 RW 4</a></li>
+		</ul>
+	</div>
+
+<?  foreach( $daftarDaerah as $daerah ): ?>
+<h3 id="<?= $daerah['Penduduk']['rt'] . "-" . $daerah['Penduduk']['rw'] ?>">
+<span class="noprint"><a href="#sidebox"><?php echo $html->image('up.png'); ?></a></span>
+<?= "Kepala keluarga di Dusun " . $daerah['Dusun']['nama'] . ", RT " . $daerah['Penduduk']['rt'] . " RW " . $daerah['Penduduk']['rw'] ?>
+</h3>
+
+<table class="datasheet view" cellpadding="0" cellspacing="0" style="width: 50%">
+		<tr>
+			<th>No</th>
+			<th>Nama</th>
+			<th style="text-align:center" class="aksi">Aksi</th>
+		</tr>		
+			<? $daftarKepalaKeluargaDaerah = $this->controller->Penduduk->findAll( "`Penduduk`.`dusun_id` = {$daerah['Dusun']['id']} AND `Penduduk`.`rt` = {$daerah['Penduduk']['rt']} AND `Penduduk`.`rw` = {$daerah['Penduduk']['rw']} AND `Penduduk`.`nomor_kepala_keluarga` = '0'", null, "`Penduduk`.`nama` ASC" ); ?>
+			<? $no = 0 ?>
+			<? foreach( $daftarKepalaKeluargaDaerah as $dataKepalaKeluarga ):  ?>
+			<tr>    
+				<td><?= ++$no ?></td>
+				<td><?= $dataKepalaKeluarga['Penduduk']['gelar_depan'] . " " . $dataKepalaKeluarga['Penduduk']['nama'] . " " . $dataKepalaKeluarga['Penduduk']['gelar_belakang'] ?></td>
+				<td class="aksi"><?= $html->link( "Lihat", "/inhabitants/view/{$this->controller->Penduduk->getUniqueId( $dataKepalaKeluarga )}", array("class"=>"detail")) ?> &nbsp; <?= $html->link( "Edit", "/inhabitants/edit/{$this->controller->Penduduk->getUniqueId( $dataKepalaKeluarga )}", array("class"=>"ubah")) ?>
+				</td>
+			</tr>
+			<? endforeach; ?>
+</table>
+
+<? endforeach; ?>
+
+	<div class="noprint">
+	<h2>Aksi</h2>
+	<?= $html->link( "Tambah data", "/inhabitants/add", array("class"=>"add")) ?>
+	</div>
+	
+</div> <!-- list tab -->
+
+<div id="search" class="wrap" style="display: none;">
+<h2 class="top">Pencarian:</h2>
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+	<div>
+    <form method="POST" id="PendudukSearch">
+        <?= $form->generateSelectDiv( "Penduduk/dusun_id", "Dusun: ", $this->controller->Dusun->generateList() ) ?>
+        <?= $form->generateInputDiv( "Penduduk/rt", "RT: " ) ?>
+        <?= $form->generateInputDiv( "Penduduk/rw", "RW: " ) ?>
+        <?= $form->generateSelectDiv( "Penduduk/status_kepala_keluarga", "Kepala keluarga? ", array( "Y" => "Ya", "N" => "Tidak" ) ) ?>
+        <?= $form->generateInputDiv( "Penduduk/nama", "Nama: " ) ?>
+        <?= $form->generateSelectDiv( "Penduduk/jenis_kelamin_id", "Jenis kelamin: ", $this->controller->JenisKelamin->generateList() ) ?>
+        <? //= $form->generateInputDiv( "Penduduk/usia", "Usia: " ) ?>
+        <?= $form->generateSelectDiv( "Penduduk/agama_id", "Agama", $this->controller->Agama->generateList() ) ?>
+        <?= $form->generateInputDiv( "Penduduk/pekerjaan", "Pekerjaan: " ) ?>
+        <?= $form->generateInputDiv( "Penduduk/pendidikan", "Pendidikan: " ) ?>
+    </form>
+    </div>
+    <?= $ajax->observeForm( "PendudukSearch", array( "frequency" => 1, "url" => "auto_list", "update" => "PendudukList" ) ) ?>
+
+    <!-- Div untuk auto_list penduduk -->
+    <div id="PendudukList">
+    </div>
+</div> <!-- search tab -->
+
+<!-- Skrip untuk Tab -->
+<script type="text/javascript">
+	/* <![CDATA[*/
+		// Index Page
+		function list() {
+			// Tab
+			document.getElementById('list_tab').className = 'current';
+			document.getElementById('search_tab').className = 'tab';
+			// Page
+			document.getElementById('list').style.display= 'block';
+			document.getElementById('search').style.display = 'none';
+			
+		}
+		// Changelog Page
+		function cari() {
+			// Tab
+			document.getElementById('list_tab').className = 'tab';
+			document.getElementById('search_tab').className = 'current';			
+			// Page
+			document.getElementById('list').style.display = 'none';
+			document.getElementById('search').style.display = 'block';			
+		}
+		
+	/* ]]> */
+</script>
+</div>

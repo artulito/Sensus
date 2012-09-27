@@ -1,0 +1,23 @@
+<div class="wrap">
+
+<?php
+// Mengeset pesan error
+if ($error){
+e('<h2 class="top">Login salah, silahkan ulangi</h2>');
+}else{
+e('<h2 class="top">Silahkan Login</h2>');
+}
+?>
+
+<?php echo $html->formTag('/users/login') ?>
+
+<?= $form->generateInputDiv( "User/username", "Username: " ) ?>
+<?= $form->generateInputDiv( "User/password", "Password: " ) ?>
+<?php echo $html->submitTag('login') ?>
+
+</form>
+
+<br>
+<?php echo $html->link('Register', '/users/register') ?>
+
+</div>

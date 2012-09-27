@@ -1,0 +1,77 @@
+<ul id="submenu" class="noprint">
+	<li><?= $html->link("Daftar Dusun","/inhabitants/", array( 'class' => 'current'))?></li>
+	<li><?= $html->link("Statistik","/inhabitants/stats")?></li>
+	<li><?= $html->link("Pencarian","/inhabitants/search")?></li>
+</ul>
+
+<div id="<?= $this->viewPath ?>">
+
+<?php 
+//echo $this->controller->referer();
+?>
+
+<div id="list" class="wrap">
+
+<h2 class="top noprint">Daftar Dusun</h2>
+<p class="noprint">
+
+<?
+if ($user <> null){
+	echo "Anda login sebagai <strong>".$user."</strong> ";
+	echo $html->link('[logout]', '/users/logout');
+	echo ". ";
+} else {
+	echo "Selamat datang, silahkan ";
+	echo $html->link('[login]', '/users/login');
+	echo " untuk mengedit. ";
+}
+?>
+Saat ini, penduduk yang tercatat sebanyak <strong><?= $jumlahPenduduk ?></strong> orang.
+<?= $html->link("[+]", "/inhabitants/add") ?>
+</p>
+
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+
+<div id="daftar">		
+
+<table class="wide">
+  <tr>
+	<td valign="top">
+
+<!-- Secara Dinamis: -->
+<?php $baris = 4; ?>
+
+<?php foreach( $daftarDusun as $dusun ): ?>
+
+<h3>
+<?= $html->link($dusun['Dusun']['nama']." »","/inhabitants/dusun/".$dusun['Dusun']['id']) ?>
+</h3>
+
+<ul>
+<?php foreach( $daftarDaerah as $daerah ): ?>
+<?php if ( $dusun['Dusun']['nama'] == $daerah['Dusun']['nama']){ ?>
+	<li><?php echo $html->link( 
+	$dusun['Dusun']['nama'].' RT '.$daerah['Penduduk']['rt'].' RW '.$daerah['Penduduk']['rw'],
+	'dusun/'.$daerah['Dusun']['id'].'#'.$daerah['Penduduk']['rt'].'-'.$daerah['Penduduk']['rw'] ) ?></li>
+<?php } ?>
+<?php endforeach; ?>
+</ul>
+
+<? // Untuk mengatur tampilan 
+	$counter++;
+	if ($baris == $counter) {
+	$counter = 1;
+	echo "</td><td valign=\"top\">";	
+	}
+?>
+
+<?php endforeach; ?>
+<!-- End Secara Dinamis -->
+
+	</td> <!-- Akhir kolom -->
+  </tr>
+</table>	
+</div> <!-- daftar -->
+
+</div> <!-- list tab -->
+</div>

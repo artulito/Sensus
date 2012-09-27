@@ -1,0 +1,43 @@
+<h2>Terdapat <?= count( $daftarPenduduk ) ?> hasil pencarian:</h2>
+<table class="datasheet wide view">
+	<tr>
+		<th colspan="3">Nama</th>
+        	<th rowspan="2">Alamat</th>
+		<th rowspan="2">Jenis kelamin</th>
+		<th rowspan="2">Usia</th>
+		<th rowspan="2">Tempat lahir</th>
+		<th rowspan="2">Agama</th>
+		<th rowspan="2">Pekerjaan</th>
+		<th rowspan="2">Pendidikan</th>
+	</tr>
+	<tr>
+		<th style="width: 50px;">Gelar depan</th>
+		<th style="width: 170px;">Nama asli</th>
+		<th style="width: 60px;">Gelar belakang</th>
+	</tr>
+    <? foreach( $daftarPenduduk as $dataPenduduk ): ?>
+	<tr>
+		<td><?= $dataPenduduk['Penduduk']['gelar_depan'] ?></td>
+		
+		<td>
+		<?php 		
+		echo $dataPenduduk['Penduduk']['nama'];
+		//if ( $dataPenduduk['Penduduk']['nomor_kepala_keluarga'] == "0" ) {	
+		//	echo $dataPenduduk['Penduduk']['nama']; 
+		//} else { 
+		//	echo $html->link( $dataPenduduk['Penduduk']['nama'], 'view/'.$dataPenduduk['Penduduk']['nomor_kepala_keluarga'] );
+		//}
+		
+		?></td>
+		
+		<td><?= $dataPenduduk['Penduduk']['gelar_belakang'] ?></td>
+        <td><?= $dataPenduduk['Dusun']['nama'] . ", RT " . $dataPenduduk['Penduduk']['rt'] . ", RW " . $dataPenduduk['Penduduk']['rw'] ?></td>
+		<td><?= $dataPenduduk['JenisKelamin']['nama'] ?></td>
+		<td><? $umur = $this->controller->Penduduk->getAgeInfo( $dataPenduduk['Penduduk']['tanggal_lahir'] ); echo $umur['years'] ?></td>
+		<td><?= $dataPenduduk['Penduduk']['tempat_lahir'] ?></td>
+		<td><?= $dataPenduduk['Agama']['nama'] ?></td>
+		<td><?= $dataPenduduk['Penduduk']['pekerjaan'] ?></td>
+		<td><?= $dataPenduduk['Penduduk']['pendidikan'] ?></td>
+	</tr>
+    <? endforeach; ?>
+</table>

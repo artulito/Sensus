@@ -1,0 +1,33 @@
+/*------------HACKS-------------*/
+
+* html #poststuff {
+height: 100%; /* kill peekaboo bug in IE */
+}
+
+/* This is the Holly Hack \*/
+* html .wrap { height: 1% }
+/* For Win IE's eyes only */
+
+* html {
+overflow-x: hidden;
+}
+
+/*---------- ALTER -------------*/
+
+#sidebox {}
+	
+#user_info {
+top: 1em;
+}
+
+.print {
+right: 1.5em;
+}
+
+label {
+float:none;
+}
+
+input, textarea , select {
+clear: none;
+}

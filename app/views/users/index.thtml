@@ -1,0 +1,10 @@
+<div class="wrap">
+
+<h2 class="top">Halo, <?php e($User['first_name'] . ' ' . $User['last_name']) ?></h2>
+<p>Login terakhir anda pada <?php e($last_login) ?></p>
+
+<h2 class="noprint">Aksi</h2>
+<?php echo $html->link('Daftar User', '/users/daftar') ?> | <?php echo
+$html->link('Logout', '/users/logout') ?>
+
+</div>

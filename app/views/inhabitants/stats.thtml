@@ -1,0 +1,134 @@
+<ul id="submenu" class="noprint">
+	<li><?= $html->link("Daftar Dusun","/inhabitants/")?></li>
+	<li><?= $html->link("Statistik","/inhabitants/stats", array( 'class' => 'current'))?></li>
+	<li><?= $html->link("Pencarian","/inhabitants/search")?></li>
+</ul>
+
+<div id="<?= $this->viewPath ?>">
+
+<div id="stats" class="wrap" style="">
+<h2 class="top">Statistik</h2>
+
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+<table class="wide">
+<tbody>
+
+<tr><td><h3>Penyebaran Gender</h3>
+<div><canvas id="gender" height="350" width="400"></canvas></div></td>
+<td><h3>Tingkat Pendidikan</h3>
+<div><canvas id="pendidikan" height="350" width="400"></canvas></div></td></tr>
+
+<tr><td><h3>Penyebaran Agama</h3>
+<div><canvas id="agama" height="350" width="400"></canvas></div></td>
+<td><h3>Penyebaran Pekerjaan</h3>
+<div><canvas id="pekerjaan" height="350" width="400"></canvas></div></td></tr>
+
+</tbody>
+</table>
+
+<script type="text/javascript">
+			// Define dataset
+			
+			var dataset = {
+				'Agama':[[0, <?= $islam ?>], [1, <?= $kristen ?>], [2, <?= $katolik ?>], [3, <?= $hindu ?>]]
+			};
+			var	dataset2 = {
+				'Pekerjaan':[[0, <?= $pelajar ?>], [1, <?= $pedagang ?>], [2, <?= $buruh ?>], [3, <?= $petani ?>], [4, <?= $PNS ?>], 
+				[5, <?= $swasta ?>], [6,<?= $wiraswasta ?>], [7,<?= $ibu_rt ?>], [8, <?= $menganggur ?>]]
+			};
+			var dataset3 = {
+				'Gender':[[0, <?= $pria?>], [1, <?= $wanita ?>]]
+			};
+			var	dataset4 = {
+				'Pendidikan':[[0, <?= $SD?>], [1, <?= $SMP?>], [2, <?= $SMA?>], [3, <?= $D3?>], [4, <?= $S1?>],	[5, <?= $_SD?>], [6, <?= $belum?>], [7, <?= $non?>]]
+			};
+			
+			// Define options.
+			var options = {
+				padding: {left: 30, right: 0, top: 10, bottom: 30},
+				backgroundColor: '#fff',
+				colorScheme: 'blue',
+				
+				// Set the labels.
+			   	xTicks: [
+					{v:0, label:'Islam'}, 
+			      	{v:1, label:'Kristen'}, 
+			      	{v:2, label:'Katolik'},
+			      	{v:3, label:'Hindu'}
+				]
+			};
+			
+			var options2 = {
+				padding: {left: 30, right: 0, top: 10, bottom: 30},
+				backgroundColor: '#fff',
+				colorScheme: 'blue',
+				
+				// Set the labels.
+			   	xTicks: [
+					{v:0, label:'Pelajar'}, 
+			      	{v:1, label:'Pedagang'},
+					{v:2, label:'Buruh'},
+					{v:3, label:'Petani'},
+			      	{v:4, label:'PNS'},
+			      	{v:5, label:'Pegawai Swasta'},
+					{v:6, label:'Wiraswasta'},
+					{v:7, label:'Rumah Tangga'},
+					{v:8, label:'Tidak Bekerja'}
+				]
+			};
+			
+			var options3 = {
+				padding: {left: 30, right: 0, top: 10, bottom: 30},
+				backgroundColor: '#fff',
+				colorScheme: 'blue',
+				
+				// Set the labels.
+			   	xTicks: [
+					{v:0, label:'Laki-laki'}, 
+			      	{v:1, label:'Perempuan'}
+				]
+			};
+			
+			var options4 = {
+				padding: {left: 30, right: 0, top: 10, bottom: 30},
+				backgroundColor: '#fff',
+				colorScheme: 'blue',
+				
+				// Set the labels.
+			   	xTicks: [
+					{v:0, label:'SD'}, 
+			      	{v:1, label:'SMP'},
+					{v:2, label:'SMA'},
+			      	{v:3, label:'D3'},
+			      	{v:4, label:'S1'},
+					{v:5, label:'SD Belum Tamat'},
+					{v:6, label:'Belum Sekolah'},
+					{v:7, label:'Tidak Sekolah'}
+				]
+			};
+			
+			// Instantiate a new PieCart.
+			var pie = new Plotr.PieChart('agama',options);
+			// Add a dataset to it.
+			pie.addDataset(dataset);
+			// Render it.
+			pie.render();
+			
+			// Chart pekerjaan
+			var pie2 = new Plotr.PieChart('pekerjaan',options2);
+			pie2.addDataset(dataset2);
+			pie2.render();
+			
+			// Chart gender
+			var pie3 = new Plotr.PieChart('gender',options3);
+			pie3.addDataset(dataset3);
+			pie3.render();
+			
+			// Chart pendidikan
+			var pie4 = new Plotr.PieChart('pendidikan',options4);
+			pie4.addDataset(dataset4);
+			pie4.render();
+</script>
+</div> <!-- stats tab -->
+
+</div>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><?php echo $title_for_layout;?> | Sensus Desa Jabung</title>
+	<link rel="icon" href="<?php echo $this->webroot . 'favicon.ico';?>" type="image/x-icon" />
+	<link rel="shortcut icon" href="<?php echo $this->webroot . 'favicon.ico';?>" type="image/x-icon" />
+	<?php echo $html->css('main');?>
+	<!--[if lte IE 7]><?php echo $html->css('iefix');?><![endif]-->
+	<?php if( isset($javascript) ) : ?>
+		<?php echo $javascript->link('proto.150c'); ?>
+		<?php echo $javascript->link('scriptaculous'); ?>
+	<?php endif; ?>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1>Sensus Desa Jabung</h1>
+		<div id="user_info"><p>
+		<?= $html->link("Awal", "/inhabitants", array("class"=>"home")) ?>
+		<?= $html->link("Tambah Data", "/inhabitants/add", array("class"=>"add")) ?>
+		<? if ($session->read('user')){
+		echo $html->link("Logout", "/users/logout", array("class"=>"loginout"));
+		} else {
+		echo $html->link("Login", "/users/login", array("class"=>"loginout"));		
+		}
+		?></p>
+		</div>
+		</div>
+		<div id="content">
+			<?php if ($session->check('Message.flash')) $session->flash(); ?>
+			<?php echo $content_for_layout; ?>
+		</div>
+		<div id="footer">
+		<p><?= $html->link( $html->image('cake.power.png') ,"/pages/about", null, false, false) ?></p>
+		</div>
+	</div>
+</body>
+</html>

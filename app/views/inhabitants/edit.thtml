@@ -1,0 +1,95 @@
+<div id="<?= $this->viewPath; ?>"  class="wrap">
+<h2 class="top">Edit Data untuk Keluarga <?= $dataKepalaKeluarga['Penduduk']['nama'] ?></h2>
+	<form action="<?= $html->url( "edit/{$this->controller->Penduduk->getUniqueId( $dataKepalaKeluarga )}" ); ?>" method="POST">
+		<table class="datasheet">
+			<tr>
+				<th>Dusun</th>
+				<td><?= $html->selectTag( "Alamat/dusun", $this->controller->Dusun->generateList(), $dataKepalaKeluarga['Dusun']['id'] ) ?></td>
+			</tr>
+			<tr>
+				<th>RT</th>                               
+				<td><?= $html->input( "Alamat/rt", array( "value" => $dataKepalaKeluarga['Penduduk']['rt'] ) ) ?></td>
+			</tr>
+			<tr>
+				<th>RW</th>
+				<td><?= $html->input( "Alamat/rw", array( "value" => $dataKepalaKeluarga['Penduduk']['rw'] ) ) ?></td>
+			</tr>
+		</table>
+		<script language="javascript">
+		function konfirmasi()
+		{
+			return confirm( "Yakin, data sudah benar?" );
+		}
+		</script>
+		<br>
+		<table class="datasheet wide">
+			<tr>
+				<th colspan="3">Nama</th>
+				<th rowspan="2">Jenis kelamin</th>
+				<th rowspan="2">Tempat lahir</th>
+				<th rowspan="2">Tanggal lahir</th>
+				<th rowspan="2">Agama</th>
+				<th rowspan="2">Pekerjaan</th>
+				<th rowspan="2">Pendidikan</th>
+				<th rowspan="2">Keterangan</th>
+			</tr>
+			<tr>
+				<th style="width: 50px;">Gelar depan</th>
+				<th style="width: 190px;">Nama asli</th>
+				<th style="width: 60px;">Gelar belakang</th>
+			</tr>
+			<tr>
+				<td colspan="10" class="divider">Entry untuk kepala keluarga</td>
+			</tr>
+			<tr>
+				<td><?= $html->input( "0][Penduduk/gelar_depan", array( "value" => $dataKepalaKeluarga['Penduduk']['gelar_depan'] ) ); ?></td>
+				<td><?= $html->input( "0][Penduduk/nama", array( "size" => 30, "value" => $dataKepalaKeluarga['Penduduk']['nama'] ) ); ?></td>
+				<td><?= $html->input( "0][Penduduk/gelar_belakang", array( "value" => $dataKepalaKeluarga['Penduduk']['gelar_belakang'] ) ); ?></td>
+				<td><?= $html->selectTag( "0][Penduduk/jenis_kelamin", $this->controller->JenisKelamin->generateList(), $dataKepalaKeluarga['Penduduk']['jenis_kelamin_id'] ); ?></td>
+				<td><?= $html->input( "0][Penduduk/tempat_lahir", array( "value" => $dataKepalaKeluarga['Penduduk']['tempat_lahir'] ) ); ?></td>
+				<td><?= $html->input( "0][Penduduk/tanggal_lahir", array( "value" => $dataKepalaKeluarga['Penduduk']['tanggal_lahir'] ) ); ?></td>
+				<td><?= $html->selectTag( "0][Penduduk/agama", $this->controller->Agama->generateList(), $dataKepalaKeluarga['Penduduk']['agama_id'] ) ?></td>
+				<td><?= $html->input( "0][Penduduk/pekerjaan", array( "value" => $dataKepalaKeluarga['Penduduk']['pekerjaan'] ) ) ?></td>
+				<td><?= $html->input( "0][Penduduk/pendidikan", array( "value" => $dataKepalaKeluarga['Penduduk']['pendidikan'] )) ?></td>
+				<td><?= $html->input( "0][Penduduk/keterangan", array( "value" => $dataKepalaKeluarga['Penduduk']['keterangan'] )) ?></td>
+				<?= $html->hidden( "0][Penduduk/status_kepala_keluarga", array( "value" => "Y" ) ) ?>
+				<?= $html->hidden( "0][Penduduk/id", array( "value" => $dataKepalaKeluarga['Penduduk']['id'] ) ) ?>
+			</tr>
+			<tr>
+				<td colspan="9" class="divider">Entry untuk anggota keluarga</td> 
+			</tr>
+			<? $counterAnggotaKeluargaEksis = 0; ?>
+			<? foreach( $dataAnggotaKeluarga as $datumAnggotaKeluarga ): ?>
+			<? ++$counterAnggotaKeluargaEksis ?>
+			<tr>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/gelar_depan", array( "value" => $datumAnggotaKeluarga['Penduduk']['gelar_depan'] ) ); ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/nama", array( "size" => 30, "value" => $datumAnggotaKeluarga['Penduduk']['nama'] ) ); ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/gelar_belakang", array( "value" => $datumAnggotaKeluarga['Penduduk']['gelar_belakang'] ) ); ?></td>
+				<td><?= $html->selectTag( "$counterAnggotaKeluargaEksis][Penduduk/jenis_kelamin", $this->controller->JenisKelamin->generateList(), $datumAnggotaKeluarga['Penduduk']['jenis_kelamin_id'] ); ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/tempat_lahir", array( "value" => $datumAnggotaKeluarga['Penduduk']['tempat_lahir'] ) ); ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/tanggal_lahir", array( "value" => $datumAnggotaKeluarga['Penduduk']['tanggal_lahir'] ) ); ?></td>
+				<td><?= $html->selectTag( "$counterAnggotaKeluargaEksis][Penduduk/agama", $this->controller->Agama->generateList(), $datumAnggotaKeluarga['Penduduk']['agama_id'] ) ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/pekerjaan", array( "value" => $datumAnggotaKeluarga['Penduduk']['pekerjaan'] ) ) ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluargaEksis][Penduduk/pendidikan", array( "value" => $datumAnggotaKeluarga['Penduduk']['pendidikan'] ) ) ?></td>
+				<?= $html->hidden( "$counterAnggotaKeluargaEksis][Penduduk/status_kepala_keluarga", array( "value" => "N" ) ) ?>
+				<?= $html->hidden( "$counterAnggotaKeluargaEksis][Penduduk/id", array( "value" => $datumAnggotaKeluarga['Penduduk']['id'] ) ) ?>
+			</tr>
+			<? endforeach; ?>
+			<? for( $counterAnggotaKeluarga = $counterAnggotaKeluargaEksis + 1; $counterAnggotaKeluarga <= 9; $counterAnggotaKeluarga++ ) : ?>
+			<tr>
+				<td><?= $ajax->autoComplete( "$counterAnggotaKeluarga][Penduduk/gelar_depan", "auto_complete/$counterAnggotaKeluarga/gelar_depan" ); ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluarga][Penduduk/nama", array( "size" => 30 ) ); ?></td>
+				<td><?= $ajax->autoComplete( "$counterAnggotaKeluarga][Penduduk/gelar_belakang", "auto_complete/0/gelar_belakang" ); ?></td>
+				<td><?= $html->selectTag( "$counterAnggotaKeluarga][Penduduk/jenis_kelamin", $this->controller->JenisKelamin->generateList() ); ?></td>
+				<td><?= $ajax->autoComplete( "$counterAnggotaKeluarga][Penduduk/tempat_lahir", "auto_complete/$counterAnggotaKeluarga/tempat_lahir" ); ?></td>
+				<td><?= $html->input( "$counterAnggotaKeluarga][Penduduk/tanggal_lahir" ); ?></td>
+				<td><?= $html->selectTag( "$counterAnggotaKeluarga][Penduduk/agama", $this->controller->Agama->generateList() ) ?></td>
+				<td><?= $ajax->autoComplete( "$counterAnggotaKeluarga][Penduduk/pekerjaan", "auto_complete/$counterAnggotaKeluarga/pekerjaan" ) ?></td>
+				<td><?= $ajax->autoComplete( "$counterAnggotaKeluarga][Penduduk/pendidikan", "auto_complete/$counterAnggotaKeluarga/pendidikan" ) ?></td>
+				<?= $html->hidden( "$counterAnggotaKeluarga][Penduduk/status_kepala_keluarga", array( "value" => "N" ) ) ?>
+			</tr>
+			<? endfor; ?>
+		</table>
+		<?= $form->generateSubmitDiv( "Simpan", array( "onclick" => "return konfirmasi();" ) ) ?>
+	</form>
+</div>

@@ -1,0 +1,56 @@
+<ul id="submenu" class="noprint">
+	<li><?= $html->link("Daftar Dusun","/inhabitants/")?></li>
+	<li><?= $html->link("Statistik","/inhabitants/stats")?></li>
+	<li><?= $html->link("Pencarian","/inhabitants/search")?></li>
+</ul>
+
+<div id="<?= $this->viewPath ?>">
+
+<div id="list" class="wrap">
+<h2 class="top"><?= $namaDusun ?></h2>
+<span class="noprint"><a class="print" href="javascript:window.print()">Print</a></span>
+
+<div id="sidebox" style="position:relative;">
+	<span style="font-size:small;float:right;position:absolute;right:1em;top:1em">
+		<?= $html->link("[index]","/inhabitants/")?>
+	</span>
+<h3>Dusun <?= $namaDusun ?>
+</h3>
+
+<ul>
+<? foreach( $daftarDaerah as $daerah ): ?>
+	<li><a href="#<?= $daerah['Penduduk']['rt'] . "-" . $daerah['Penduduk']['rw'] ?>"><?= "RT " . $daerah['Penduduk']['rt'] . " RW " . $daerah['Penduduk']['rw']?></a></li>	
+<? endforeach; ?>
+	
+</ul>
+
+</div>
+
+<?  foreach( $daftarDaerah as $daerah ): ?>
+<h3 id="<?= $daerah['Penduduk']['rt'] . "-" . $daerah['Penduduk']['rw'] ?>">
+<span class="noprint"><a href="#header"><?= $html->image('up.png'); ?></a></span>
+<?= "Kepala keluarga di Dusun " . $daerah['Dusun']['nama'] . ", RT " . $daerah['Penduduk']['rt'] . " RW " . $daerah['Penduduk']['rw'] ?>
+</h3>
+
+<table class="datasheet view" cellpadding="0" cellspacing="0" style="width: 50%">
+		<tr>
+			<th>No</th>
+			<th>Nama</th>
+			<th style="text-align:center" class="aksi">Aksi</th>
+		</tr>		
+			<? $daftarKepalaKeluargaDaerah = $this->controller->Penduduk->findAll( "`Penduduk`.`dusun_id` = {$daerah['Dusun']['id']} AND `Penduduk`.`rt` = {$daerah['Penduduk']['rt']} AND `Penduduk`.`rw` = {$daerah['Penduduk']['rw']} AND `Penduduk`.`nomor_kepala_keluarga` = '0'", null, "`Penduduk`.`nama` ASC" ); ?>
+			<? $no = 0 ?>
+			<? foreach( $daftarKepalaKeluargaDaerah as $dataKepalaKeluarga ):  ?>
+			<tr>    
+				<td><?= ++$no ?></td>
+				<td><?= $dataKepalaKeluarga['Penduduk']['gelar_depan'] . " " . $dataKepalaKeluarga['Penduduk']['nama'] . " " . $dataKepalaKeluarga['Penduduk']['gelar_belakang'] ?></td>
+				<td class="aksi"><?= $html->link( "Lihat", "/inhabitants/view/{$this->controller->Penduduk->getUniqueId( $dataKepalaKeluarga )}", array("class"=>"detail")) ?> &nbsp; <?= $html->link( "Edit", "/inhabitants/edit/{$this->controller->Penduduk->getUniqueId( $dataKepalaKeluarga )}", array("class"=>"ubah")) ?>
+				</td>
+			</tr>
+			<? endforeach; ?>
+</table>
+
+<? endforeach; ?>
+</div>
+
+</div>

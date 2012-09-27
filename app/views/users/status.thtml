@@ -1,0 +1,20 @@
+<div class="wrap">
+
+<h2 class="top">User yang telah terdaftar</h2>
+
+<table class="datasheet view">
+<?php
+echo $html->tableHeaders(array_keys($knownusers[0]['User']));
+foreach ($knownusers as $thisuser)
+{
+echo $html->tableCells($thisuser['User'], array('bgcolor' => '#ddd'));
+}
+?>
+</table>
+
+<br>
+<span class="noprint">
+<a class="back" href="javascript:history.back()">Kembali</a>
+</span>
+
+</div>
